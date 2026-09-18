@@ -15,7 +15,7 @@ interface Errors {
 }
 
 const field =
-  'w-full rounded-xl bg-ink/[0.04] px-4 py-3 text-sm text-ink outline-none ring-1 ring-transparent transition placeholder:text-ink/35 focus:bg-ink/[0.06] focus:ring-brand-500/50'
+  'w-full rounded-xl bg-ink/4 px-4 py-3 text-sm text-ink outline-hidden ring-1 ring-transparent transition placeholder:text-ink/35 focus:bg-ink/6 focus:ring-brand-500/50'
 const label = 'block text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-ink/50'
 
 function ChevronIcon() {
@@ -90,7 +90,7 @@ export default function ContactModal({ open, onClose }: ContactModalProps) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.25 }}
-          className="fixed inset-0 z-[70] flex items-start justify-center overflow-y-auto bg-ink/60 p-4 py-10 backdrop-blur-sm"
+          className="fixed inset-0 z-70 flex items-start justify-center overflow-y-auto bg-ink/60 p-4 py-10 backdrop-blur-xs"
           onClick={onClose}
         >
           <motion.div

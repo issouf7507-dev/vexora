@@ -13,7 +13,7 @@ function Row({ reverse = false }: { reverse?: boolean }) {
         {items.map((tech, i) => (
           <span
             key={`${tech}-${i}`}
-            className="flex shrink-0 items-center gap-3 rounded-full border border-ink/10 bg-white px-6 py-3 text-lg font-semibold text-ink/80 shadow-sm"
+            className="flex shrink-0 items-center gap-3 rounded-full border border-ink/10 bg-white px-6 py-3 text-lg font-semibold text-ink/80 shadow-xs"
           >
             <span className="h-2 w-2 rounded-full bg-brand-500" />
             {tech}
@@ -43,8 +43,8 @@ export default function TechStack() {
 
       <div className="relative mt-16">
         {/* edge fades */}
-        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-cream to-transparent" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-cream to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-linear-to-r from-cream to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-linear-to-l from-cream to-transparent" />
         <div className="flex flex-col gap-4">
           <Row />
           <Row reverse />
