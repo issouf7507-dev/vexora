@@ -49,8 +49,8 @@ export default function Hero() {
 
       {/* Legibility overlays. The photo already carries the brand's warm cast, so
           these only darken the left third for the headline — no orange wash on top. */}
-      <div className="absolute inset-0 bg-gradient-to-r from-brand-950 via-brand-950/70 to-brand-950/10" />
-      <div className="absolute inset-0 bg-gradient-to-t from-brand-950/90 via-transparent to-brand-950/50" />
+      <div className="absolute inset-0 bg-linear-to-r from-brand-950 via-brand-950/70 to-brand-950/10" />
+      <div className="absolute inset-0 bg-linear-to-t from-brand-950/90 via-transparent to-brand-950/50" />
 
       {/* Content */}
       <motion.div

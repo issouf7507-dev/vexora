@@ -18,10 +18,10 @@ powered by **Framer Motion** and **GSAP (ScrollTrigger)**.
 ## Getting started
 
 ```bash
-npm install
-npm run dev      # start the dev server (http://localhost:5173)
-npm run build    # type-check + production build to /dist
-npm run preview  # preview the production build
+pnpm install
+pnpm dev      # start the dev server (http://localhost:5173)
+pnpm build    # type-check + production build to /dist
+pnpm preview  # preview the production build
 ```
 
 ## Project structure

@@ -1,6 +1,99 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@theme {
+  --color-brand-300: #ff9c5c;
+  --color-brand-400: #ff7f2a;
+  --color-brand-500: #ff6400;
+  --color-brand-600: #c24000;
+  --color-brand-700: #8f3300;
+  --color-brand-800: #1c1c1c;
+  --color-brand-900: #121212;
+  --color-brand-950: #080808;
+
+  --color-cream: #fdf8f5;
+  --color-ink: #080808;
+
+  --font-display: 'Bebas Neue', Oswald, Impact, sans-serif;
+  --font-sans: Montserrat, ui-sans-serif, system-ui, sans-serif;
+
+  --tracking-label: 0.22em;
+  --tracking-display: 0.02em;
+
+  --container-content: 1200px;
+
+  --animate-marquee: marquee 30s linear infinite;
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+@utility container-loro {
+  @apply mx-auto w-full max-w-content px-6 md:px-10;
+}
+
+@utility label {
+  @apply text-xs font-semibold uppercase tracking-label;
+}
+
+@utility title-display {
+  /* Titre principal — Bebas Neue (charte VECXORA, 04 - Typographie).
+     Bebas n'a qu'une graisse : on force font-normal pour éviter le faux gras. */
+  @apply font-display font-normal uppercase tracking-[0.02em];
+}
+
+@utility title-section {
+  /* Sous-titres et accroches de section — Montserrat SemiBold. */
+  @apply font-sans font-semibold tracking-tight;
+}
+
+@utility btn {
+  /* Pill buttons */
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-8 py-4 text-sm font-semibold transition-all duration-300;
+}
+
+@utility btn-light {
+  @apply bg-white text-ink hover:bg-white/90 hover:scale-[1.03];
+}
+
+@utility btn-outline {
+  @apply border border-white/40 text-white hover:bg-white/10 hover:scale-[1.03];
+}
+
+@utility btn-dark {
+  @apply bg-ink text-white hover:bg-black hover:scale-[1.03];
+}
+
+@utility btn-brand {
+  @apply bg-brand-500 text-white hover:bg-brand-400 hover:scale-[1.03];
+}
+
+@utility icon-btn {
+  @apply flex h-11 w-11 items-center justify-center rounded-full bg-ink text-white transition-transform duration-300 hover:scale-110;
+}
 
 @layer base {
   :root {
@@ -22,48 +115,6 @@
   ::selection {
     background: #ff6400;
     color: #fff;
-  }
-}
-
-@layer components {
-  .container-loro {
-    @apply mx-auto w-full max-w-content px-6 md:px-10;
-  }
-
-  .label {
-    @apply text-xs font-semibold uppercase tracking-label;
-  }
-
-  /* Titre principal — Bebas Neue (charte VECXORA, 04 - Typographie).
-     Bebas n'a qu'une graisse : on force font-normal pour éviter le faux gras. */
-  .title-display {
-    @apply font-display font-normal uppercase tracking-[0.02em];
-  }
-
-  /* Sous-titres et accroches de section — Montserrat SemiBold. */
-  .title-section {
-    @apply font-sans font-semibold tracking-tight;
-  }
-
-  /* Pill buttons */
-  .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-full px-8 py-4 text-sm font-semibold transition-all duration-300;
-  }
-  .btn-light {
-    @apply bg-white text-ink hover:bg-white/90 hover:scale-[1.03];
-  }
-  .btn-outline {
-    @apply border border-white/40 text-white hover:bg-white/10 hover:scale-[1.03];
-  }
-  .btn-dark {
-    @apply bg-ink text-white hover:bg-black hover:scale-[1.03];
-  }
-  .btn-brand {
-    @apply bg-brand-500 text-white hover:bg-brand-400 hover:scale-[1.03];
-  }
-
-  .icon-btn {
-    @apply flex h-11 w-11 items-center justify-center rounded-full bg-ink text-white transition-transform duration-300 hover:scale-110;
   }
 }
 

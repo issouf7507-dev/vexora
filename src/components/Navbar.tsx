@@ -164,7 +164,7 @@ export default function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-0 z-[60] flex flex-col overflow-y-auto bg-cream"
+            className="fixed inset-0 z-60 flex flex-col overflow-y-auto bg-cream"
             role="dialog"
             aria-modal="true"
             aria-label="Menu"

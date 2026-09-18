@@ -46,7 +46,7 @@ export default function Contact() {
           </div>
 
           <Reveal delay={0.15} className="lg:pb-4">
-            <div className="space-y-6 rounded-[28px] border border-white/10 bg-white/5 p-8 backdrop-blur-sm">
+            <div className="space-y-6 rounded-[28px] border border-white/10 bg-white/5 p-8 backdrop-blur-xs">
               <ContactRow label="Email" value={contact.email} href={`mailto:${contact.email}`} />
               <ContactRow label="Phone" value={contact.phone} href={`tel:${contact.phone.replace(/\s/g, '')}`} />
               <ContactRow label="Website" value={contact.site} href={`https://${contact.site}`} />

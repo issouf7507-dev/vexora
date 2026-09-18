@@ -1,0 +1,72 @@
+name: Build & Deploy
+
+# SPA Vite : le build produit un dossier statique `dist/`, servi par nginx
+# sur vexora.ci-cargo.com. Pas de PM2 — déployer = copier `dist/` sur le VPS.
+# Si le build échoue, le job s'arrête et rien n'est copié.
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: # permet de relancer un déploiement à la main depuis l'onglet Actions
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+env:
+  APP_DIR: /home/dev-issouf/apps/vexora
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # La version de pnpm est lue depuis le champ `packageManager` de package.json
+      # (pnpm@11.3.0) : ne pas ajouter `version:` ici, sinon l'action échoue.
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      # pnpm 11 demande Node 22 ou plus récent ; 24 = même version qu'en local.
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm build
+
+      - name: Upload files to VPS
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          port: ${{ secrets.VPS_SSH_PORT }}
+          source: "dist/*"
+          target: ${{ env.APP_DIR }}
+          strip_components: 1
+          rm: true
+
+      # Les fichiers restent la propriété de l'utilisateur SSH (sinon le `rm: true`
+      # du prochain déploiement ne pourrait plus les supprimer) ; on donne juste
+      # à nginx le droit de les lire.
+      - name: Fix permissions on VPS
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          port: ${{ secrets.VPS_SSH_PORT }}
+          script: |
+            find ${{ env.APP_DIR }} -type d -exec chmod 755 {} \;
+            find ${{ env.APP_DIR }} -type f -exec chmod 644 {} \;
